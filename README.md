@@ -1,155 +1,60 @@
-# Two-Stage Randomized Trial Design for Antimicrobials: Complete Revision Package
+# Two-Stage Randomized Trial Design for Antimicrobial Strategies: Simulation Code
 
-## 📦 What You've Received
+Simulation code for the manuscript: *"Advantages of a Two-Stage Randomized Trial Design to Evaluate Antimicrobial Treatment Strategies: a Simulation Study"*
 
-A **complete, professional revision** of your ABM simulation paper addressing all 10 priority reviewer feedback items. All critical sections have been rewritten, expanded, or formalized.
+## Overview
 
-**Total package:** 8 files (37 KB manuscript + 70 KB documentation) | ~2 hours of user work remaining
+This repository contains all code to reproduce the agent-based model (ABM) simulations and figures reported in the manuscript. The ABM simulates a hospital ward with two competing bacterial strains (drug-susceptible and drug-resistant) under two-stage randomization, estimating direct, indirect, total, and overall causal effects on mortality following the Hudgens--Halloran framework.
 
----
+## Requirements
 
-## 🚀 Quick Start (5 Minutes)
+- R >= 4.4.1
+- R packages: `ABM` (>= 0.4.3), `ggplot2`, `dplyr`, `tidyr`, `patchwork`, `scales`
 
-1. **Read first:** `00_START_HERE.md` — Executive summary and next steps
-2. **Your task:** Extract R results → Populate tables → Generate figures → Compile
-
----
-
-## 📁 File Guide
-
-### Main Manuscript
-- **`paper_2SR_abm_REVISED.tex`** ← Your complete revised paper, ready to compile
-
-### Documentation (Read in Order)
-1. **`00_START_HERE.md`** — Overview, quick reference, FAQ (5 min read)
-2. **`RESULTS_INTEGRATION_GUIDE.md`** — How to extract R output and populate tables (10 min)
-3. **`REVISION_SUMMARY.md`** — Detailed before/after for all changes (15 min)
-4. **`REVIEWER_FEEDBACK_CHECKLIST.md`** — Verify all feedback addressed (10 min)
-5. **`FINAL_SUMMARY.txt`** — Comprehensive summary of work completed (10 min)
-6. **`MANIFEST.txt`** — Complete file manifest and statistics
-
-### Reference
-- **`REVISION_NOTES.md`** — Original planning document
-- **`PAPER_REVISIONS.tex`** — Raw revision content
-
----
-
-## ✅ What's Been Completed
-
-### Critical Issues (4/4 ✅)
-- [x] Abstract results statement
-- [x] Results section (was mid-sentence)
-- [x] Formal causal estimands table
-- [x] Discussion section (was placeholder)
-
-### High Priority (5/5 ✅)
-- [x] Formalized causal assumptions
-- [x] Parameter summary table
-- [x] Fixed subscript inconsistency
-- [x] Extended sensitivity analyses
-- [x] Clarified TE estimand
-
-### Medium/Polish (All ✅)
-- [x] Connected to target trial framework
-- [x] Justified model assumptions
-- [x] Defined SI construction
-- [x] Unified notation
-- [x] Detailed mechanism
-- [x] Improved readability
-
----
-
-## 🎯 Your Remaining Tasks (~2 Hours)
-
-```
-1. Read 00_START_HERE.md                      (5 min)
-2. Extract simulation numbers from R code     (30 min)
-3. Populate Tables 3, 4, 5                   (20 min)
-4. Generate 2 figures                        (30 min)
-5. Create references.bib file                (15 min)
-6. Compile LaTeX                             (10 min)
-7. Final verification                        (15 min)
-────────────────────────────────────────────────────
-TOTAL:                                       ~2 hours
+Install packages:
+```r
+install.packages(c("ggplot2", "dplyr", "tidyr", "patchwork", "scales"))
+# ABM package:
+install.packages("ABM")
 ```
 
----
+## Code
 
-## 📊 Key Improvements
+All scripts are in `code/`:
 
-| Section | Before | After |
-|---------|--------|-------|
-| Abstract | Incomplete | ✅ Complete results |
-| Results | Mid-sentence, no estimands | ✅ Complete + Table 3 |
-| Methods | Scattered parameters | ✅ Organized Table 1 |
-| Methods Causal | Informal | ✅ Formal equations |
-| Discussion | 2 sentences | ✅ 5 full subsections |
-| Sensitivity Analysis | 1 check | ✅ 4 analyses |
-| Notation | Mixed A/B/1/2 | ✅ Consistent A/B |
+| Script | Description | Replicates | Runtime |
+|--------|-------------|-----------|---------|
+| `run_sim_extract_100.R` | Main simulation: produces all causal effect estimates, infection/mortality outcomes, risk by infection type, and stratified direct effects (Tables 2--4) | 100 | ~10 min |
+| `make_efigure_DE.R` | Time-varying direct effect simulation: produces Figure S3 and Table S3 data | 100 | ~5 min |
+| `generate_figures.R` | Figure generation: produces Figures 2--7 | 100 | ~10 min |
+| `run_SA.R` | Sensitivity analysis runner (26 scenarios, Tables S1--S2) | 5 | variable |
+| `sensitivity_analysis.R` | Sensitivity analysis parameter definitions | -- | -- |
 
----
+## Figures
 
-## 🔍 Quality Assurance
+Pre-generated figures are in `figures/`:
 
-- **Reviewer coverage:** 100% (10/10 items addressed)
-- **Mathematical rigor:** Formal causal framework with equations
-- **Completeness:** All sections finished, no placeholders
-- **Documentation:** 8 supporting files with detailed guidance
-- **Estimated acceptance:** HIGH (moved to "minor revisions")
+- `fig3_cumulative_deaths.png` -- Cumulative deaths by allocation strategy (Figure 3)
+- `fig4_cumulative_incidence.png` -- Cumulative infections by strategy (Figure 4)
+- Additional exploratory figures (fig2, fig5--fig7)
 
----
+## Reproducing Results
 
-## 🎓 What You'll Have After Integration
+```bash
+# 1. Main simulation (Tables 2, 3, 4 + inline results)
+Rscript code/run_sim_extract_100.R
 
-A **publication-ready manuscript** with:
-- Complete results with formal causal estimands
-- Comprehensive discussion explaining findings
-- Formal mathematical framework for interference
-- Robust sensitivity analyses
-- Professional formatting and organization
+# 2. Time-varying DE figure + Table S3
+Rscript code/make_efigure_DE.R
 
----
+# 3. Generate all figures
+Rscript code/generate_figures.R
 
-## ⚡ Next Action
-
-**Read `00_START_HERE.md` right now** (takes 5 minutes)
-
-It contains:
-- Executive summary of changes
-- Your exact next steps
-- Common questions and answers
-- Links to all support documents
-
----
-
-## 📚 File Sizes
-
-- Main manuscript: 37 KB
-- Documentation: ~70 KB (8 files)
-- Total: ~107 KB
-
----
-
-## ✨ Quality Metrics
-
-```
-Feedback items addressed:        10/10 (100%)
-Estimated improvement:           +200%
-Expected reviewer satisfaction:  HIGH
-Likelihood of acceptance:        STRONG
+# 4. Sensitivity analyses (Tables S1, S2)
+Rscript code/run_SA.R
 ```
 
----
+## Notes
 
-## 🚀 Ready?
-
-→ Start with `00_START_HERE.md`
-
-All files are in:
-```
-/Users/jug242/Library/CloudStorage/OneDrive-HarvardUniversity/Claude code/
-```
-
----
-
-**Status: ✅ READY FOR FINAL INTEGRATION AND SUBMISSION**
+- Results will vary slightly across runs due to stochastic simulation. With 100 replicates, estimates are stable to ~0.1--0.3 percentage points.
+- Sensitivity analyses use 5 replicates per scenario (supplementary, not main results).
