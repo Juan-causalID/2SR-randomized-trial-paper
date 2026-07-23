@@ -1,60 +1,47 @@
 # Two-Stage Randomized Trial Design for Antimicrobial Strategies: Simulation Code
 
-Simulation code for the manuscript: *"Advantages of a Two-Stage Randomized Trial Design to Evaluate Antimicrobial Treatment Strategies: a Simulation Study"*
+Simulation code for the manuscript *"Advantages of a Two-Stage Randomized Trial Design to Evaluate Antimicrobial Treatment Strategies: a Simulation Study."*
 
 ## Overview
 
-This repository contains all code to reproduce the agent-based model (ABM) simulations and figures reported in the manuscript. The ABM simulates a hospital ward with two competing bacterial strains (drug-susceptible and drug-resistant) under two-stage randomization, estimating direct, indirect, total, and overall causal effects on mortality following the Hudgens--Halloran framework.
+A two-stage (cluster + individual) randomized design, following Hudgens and Halloran, applied to antibiotic stewardship in a hospital ward. An agent-based model (ABM) simulates a ward with two competing bacterial strains (drug-susceptible and drug-resistant). Wards (clusters) are randomized to an allocation strategy that sets the drug mix, and patients within a ward are randomized to a drug. The design estimates the direct, indirect, total, and overall causal effects on mortality and detects the population-level (spillover) consequences of shifting the drug mix.
+
+- Strategy alpha_1 = 90/10 (90% Drug A, 10% Drug B), the reference.
+- Strategy alpha_0 = 50/50 (50% Drug A, 50% Drug B), the intervention.
+
+Drug A and Drug B are model constructs, not specific drugs: both clear the susceptible strain, and only Drug B clears the resistant strain.
+
+Every table and figure in the manuscript is reproduced by a single, self-contained script.
 
 ## Requirements
 
 - R >= 4.4.1
-- R packages: `ABM` (>= 0.4.3), `ggplot2`, `dplyr`, `tidyr`, `patchwork`, `scales`
+- R packages: `ABM` (>= 0.4.3), `tidyverse`, `patchwork`, `scales`
 
-Install packages:
 ```r
-install.packages(c("ggplot2", "dplyr", "tidyr", "patchwork", "scales"))
-# ABM package:
-install.packages("ABM")
+install.packages(c("ABM", "tidyverse", "patchwork", "scales"))
 ```
 
-## Code
-
-All scripts are in `code/`:
-
-| Script | Description | Replicates | Runtime |
-|--------|-------------|-----------|---------|
-| `run_sim_extract_100.R` | Main simulation: produces all causal effect estimates, infection/mortality outcomes, risk by infection type, and stratified direct effects (Tables 2--4) | 100 | ~10 min |
-| `make_efigure_DE.R` | Time-varying direct effect simulation: produces Figure S3 and Table S3 data | 100 | ~5 min |
-| `generate_figures.R` | Figure generation: produces Figures 2--7 | 100 | ~10 min |
-| `run_SA.R` | Sensitivity analysis runner (26 scenarios, Tables S1--S2) | 5 | variable |
-| `sensitivity_analysis.R` | Sensitivity analysis parameter definitions | -- | -- |
-
-## Figures
-
-Pre-generated figures are in `figures/`:
-
-- `fig3_cumulative_deaths.png` -- Cumulative deaths by allocation strategy (Figure 3)
-- `fig4_cumulative_incidence.png` -- Cumulative infections by strategy (Figure 4)
-- Additional exploratory figures (fig2, fig5--fig7)
-
-## Reproducing Results
+## Reproducing the results
 
 ```bash
-# 1. Main simulation (Tables 2, 3, 4 + inline results)
-Rscript code/run_sim_extract_100.R
-
-# 2. Time-varying DE figure + Table S3
-Rscript code/make_efigure_DE.R
-
-# 3. Generate all figures
-Rscript code/generate_figures.R
-
-# 4. Sensitivity analyses (Tables S1, S2)
-Rscript code/run_SA.R
+Rscript code/2SR_simulation_consolidated.R
 ```
+
+The script defines the ABM once, runs it, and derives all outputs from that single run so the tables and figures are mutually consistent. By default it:
+
+- runs the main model (6 wards x 100 replicate trials) and prints **Table 2** (causal estimands with 95% simulation intervals), **Table 3** (per-arm infection and mortality totals), **Table S3** (time-varying direct effect by time window), and the whole-trial stratified direct effects;
+- writes **Figures 1-3** (cumulative deaths; cumulative incidence; time-varying direct effect) to the working directory;
+- caches the main run to `main_beta1.5_data.rds`. Delete this file to re-simulate from scratch.
+
+Two optional sweeps are gated by flags near the top of the script (`CONFIG` block):
+
+- `RUN_SENSITIVITY <- TRUE` -> one-way sensitivity analysis (**Tables S1/S2**);
+- `RUN_EXTENDED <- TRUE` -> imperfect-Drug-B efficacy sweep (**Table S4**).
+
+Runtime: the main run is roughly 20-30 minutes on a laptop; each optional sweep adds a further ~10-20 minutes. Results vary slightly across runs because the simulation is stochastic; with 100 replicates the estimates are stable to within their reported simulation intervals.
 
 ## Notes
 
-- Results will vary slightly across runs due to stochastic simulation. With 100 replicates, estimates are stable to ~0.1--0.3 percentage points.
-- Sensitivity analyses use 5 replicates per scenario (supplementary, not main results).
+- Model states, transition rates, and parameter values (with sources) are documented inline in the script header and body.
+- No external files or sourcing are required; the single script is fully self-contained.
