@@ -1,0 +1,58 @@
+cff-version: 1.2.0
+title: >-
+  Two-Stage Randomized Trial Design for Antimicrobial Strategies:
+  Simulation Code
+message: >-
+  If you use this software, please cite both the software (via the
+  Zenodo DOI) and the accompanying paper listed under references.
+type: software
+authors:
+  - given-names: Juan
+    family-names: Gago
+    affiliation: Harvard T.H. Chan School of Public Health
+  - given-names: Christopher
+    family-names: Boyer
+    affiliation: >-
+      Harvard T.H. Chan School of Public Health; Case Western Reserve
+      University School of Medicine; Cleveland Clinic
+  - given-names: Marc
+    family-names: Lipsitch
+    affiliation: >-
+      Harvard T.H. Chan School of Public Health; Stanford University
+repository-code: https://github.com/Juan-causalID/2SR-randomized-trial-paper
+license: CC-BY-4.0
+version: 1.0.0
+date-released: '2026-09-03'
+keywords:
+  - causal inference
+  - interference
+  - antimicrobial resistance
+  - agent-based model
+  - two-stage randomization
+  - spillover effects
+abstract: >-
+  Self-contained R code reproducing every simulation result in
+  "Advantages of a Two-Stage Randomized Trial Design to Evaluate
+  Antimicrobial Treatment Strategies: a Simulation Study". A stochastic
+  agent-based model of a hospital ward with two competing bacterial
+  strains (drug-susceptible and drug-resistant) emulates a two-stage
+  randomized trial: wards are randomized to a drug-allocation strategy
+  and patients within a ward are randomized to a drug. The script
+  estimates direct, indirect, total, and overall causal effects on
+  mortality, along with the time-varying marginal direct effect, and
+  reproduces all main-text and supplementary tables and figures from a
+  single simulation run.
+references:
+  - type: article
+    title: >-
+      Advantages of a Two-Stage Randomized Trial Design to Evaluate
+      Antimicrobial Treatment Strategies: a Simulation Study
+    authors:
+      - given-names: Juan
+        family-names: Gago
+      - given-names: Christopher
+        family-names: Boyer
+      - given-names: Marc
+        family-names: Lipsitch
+    journal: American Journal of Epidemiology
+    year: 2026

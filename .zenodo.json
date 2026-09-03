@@ -1,0 +1,32 @@
+{
+  "title": "Two-Stage Randomized Trial Design for Antimicrobial Strategies: Simulation Code",
+  "description": "<p>Self-contained R code reproducing every simulation result in <em>\"Advantages of a Two-Stage Randomized Trial Design to Evaluate Antimicrobial Treatment Strategies: a Simulation Study\"</em> (American Journal of Epidemiology).</p><p>A stochastic agent-based model of a hospital ward with two competing bacterial strains (drug-susceptible and drug-resistant) emulates a two-stage randomized trial: wards (clusters) are randomized to a drug-allocation strategy that sets the Drug A / Drug B mix, and patients within a ward are randomized to a drug. Drug A and Drug B are model constructs, not real drugs: in the model both clear the susceptible strain and only Drug B clears the resistant strain.</p><p>The script defines the model once, runs it once, and derives all outputs from that single run so tables and figures are mutually consistent. It estimates the direct, indirect, total, and overall causal effects on mortality, along with the time-varying marginal direct effect, and reproduces the main-text tables and figures plus the supplementary sensitivity and extended-scenario analyses.</p><p>Requires R &gt;= 4.4.1 with the <code>ABM</code>, <code>tidyverse</code>, <code>patchwork</code>, and <code>scales</code> packages. Run with <code>Rscript code/2SR_simulation_consolidated.R</code>.</p>",
+  "upload_type": "software",
+  "license": "cc-by-4.0",
+  "creators": [
+    {
+      "name": "Gago, Juan",
+      "affiliation": "Harvard T.H. Chan School of Public Health"
+    },
+    {
+      "name": "Boyer, Christopher",
+      "affiliation": "Harvard T.H. Chan School of Public Health; Case Western Reserve University School of Medicine; Cleveland Clinic"
+    },
+    {
+      "name": "Lipsitch, Marc",
+      "affiliation": "Harvard T.H. Chan School of Public Health; Stanford University"
+    }
+  ],
+  "keywords": [
+    "causal inference",
+    "interference",
+    "antimicrobial resistance",
+    "agent-based model",
+    "two-stage randomization",
+    "spillover effects",
+    "antibiotic stewardship",
+    "hospital epidemiology"
+  ],
+  "language": "eng",
+  "access_right": "open"
+}
